@@ -12,6 +12,8 @@
 
     "jsList" : [
         "src/resource.js",
-        "src/app.js"
+        "src/data/config.js",
+        "src/game.js",
+        "src/spore.js"
     ]
 }
