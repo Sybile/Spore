@@ -29,24 +29,30 @@ var Spore = cc.Sprite.extend({
         return this.type;
     },
 
-    setSize: function(){
-        if(this.type === 0){
-            this.size = FOOD_SPORE_SIZE;
-        }else if(this.type === 1){
-            this.size = ENEMY_SPORE_SIZE;
+    setSize: function(size){
+        if(size === undefined){
+            if(this.type === 0){
+                this.size = STATIC_SPORE_SIZE;
+            }else if(this.type === 1){
+                this.size = ENEMY_SPORE_SIZE;
+            }else{
+                this.size = PLAYER_SPORE_SIZE;
+            }
         }else{
-            this.size = PLAYER_SPORE_SIZE;
+            this.size = size;
         }
+
         //被动触发
-        this.setVelocity();
+        this._setVelocity();
     },
 
     getSize: function() {
         return this.size;
     },
 
-    setVelocity: function() {
-        this.vel = getVelocityBySize(this.size);
+    //不建议调用，改变速度请通过改变大小来实现
+    _setVelocity: function() {
+        this.vel = _getVelocityBySize(this.size);
     },
 
     getVelocity: function(){
@@ -73,14 +79,19 @@ var Spore = cc.Sprite.extend({
     },
 
     /**
-     * 吞噬算法
+     * 吞噬
      * 无法运动的孢子（即食物）没有此方法
      * @param obj
      * @returns {null}
      */
     eat: function(obj){
+        if(!obj)    return null;
         if(this.type === 0) return null;
-        //吞噬算法
+
+        this.setSize(this.getSize() + obj.getSize());
+        this.runAction(cc.ScaleBy.create(0.2, 1 + obj.getSize() / this.getSize()));
+        obj.removeFromParent(true);
+        cc.audioEngine.playEffect(obj.type === 0 ? res.Effect_eatFood : res.Effect_eatEnemy, false);
     }
 });
 

@@ -8,11 +8,12 @@
     "renderMode" : 0,
     "engineDir":"frameworks/cocos2d-html5",
 
-    "modules" : ["cocos2d"],
+    "modules" : ["cocos2d", "gui"],
 
     "jsList" : [
         "src/resource.js",
         "src/data/config.js",
+        "src/main_scene.js",
         "src/game.js",
         "src/spore.js"
     ]

@@ -5,12 +5,12 @@
 /**
  * About size
  */
-var FOOD_SPORE_SIZE = 10;
+var STATIC_SPORE_SIZE = 10;
 var ENEMY_SPORE_SIZE = 20;
 var PLAYER_SPORE_SIZE = 40;
 var MAX_SPORE_SIZE = 2000;
 
-function getVelocityBySize(size){
+function _getVelocityBySize(size){
     if(size >= MAX_SPORE_SIZE) return 1;
     return (MAX_SPORE_SIZE / size);
 }
